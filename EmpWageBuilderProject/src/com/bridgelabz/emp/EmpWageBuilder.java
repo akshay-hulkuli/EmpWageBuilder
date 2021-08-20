@@ -9,6 +9,7 @@ public class EmpWageBuilder {
 	public static final int MAX_HOURS_IN_MONTH = 100;
 	
 	public static void main(String[] args) {
+		System.out.println("Welcome to Emp Wage computing Program);
 		//variables
 		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays =0;
 		//compuation
