@@ -29,7 +29,7 @@ public class EmpWageBuilder {
 			totalEmpHrs += empHrs;
 			System.out.println("Days#: "+totalWorkingDays+"     Emp Hrs: "+ empHrs);
 		}
-		int totalWage = totalEmpHrs *totalWorkingDays;
+		int totalWage = totalEmpHrs *EMP_RATE_PER_HOUR;
 		return totalWage;
 	}
 	
