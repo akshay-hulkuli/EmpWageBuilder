@@ -5,25 +5,30 @@ public class EmpWageBuilder {
 	public static final int IS_PART_TIME = 1;
 	public static final int IS_FULL_TIME = 2;
 	
-	private final String company;
-	private final int empRatePerHour;
-	private final int numOfWorkingDays;
-	private final int maxHoursInMonth ;
-	private int totalWage;
+	private int numOfCompany = 0;
+	private CompanyEmpWage[] companyEmpWageArray;
 	
-	EmpWageBuilder(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursInMonth){
-		this.company = company;
-		this.empRatePerHour = empRatePerHour;
-		this.numOfWorkingDays = numOfWorkingDays;
-		this.maxHoursInMonth = maxHoursInMonth;
+	public EmpWageBuilder() {
+		companyEmpWageArray = new CompanyEmpWage[5];
 	}
 	
-	public  void computeEmpWage() {
+	private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHoursInMonth) {
+		companyEmpWageArray[numOfCompany] = new CompanyEmpWage(company, empRatePerHour, numOfWorkingDays, maxHoursInMonth);
+		numOfCompany++;
+	}
+	
+	private void computeEmpWage() {
+		for(int i=0; i< numOfCompany; i++) {
+			companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+		}
+	}
+	
+	public  int  computeEmpWage(CompanyEmpWage companyEmpWage) {
 
 		//variables
 		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays =0;
 		//computation
-		while(totalEmpHrs <= maxHoursInMonth && totalWorkingDays < numOfWorkingDays) {
+		while(totalEmpHrs <= companyEmpWage.maxHoursInMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays) {
 			totalWorkingDays ++;
 			int empCheck = (int) Math.floor(Math.random()*10) % 3;
 			switch (empCheck) {
@@ -40,24 +45,25 @@ public class EmpWageBuilder {
 			totalEmpHrs += empHrs;
 			System.out.println("Days#: "+totalWorkingDays+"     Emp Hrs: "+ empHrs);
 		}
-		totalWage = totalEmpHrs *empRatePerHour;
+		return totalEmpHrs *companyEmpWage.empRatePerHour;
 		
 	}
 	
-	@Override
-	public String toString() {
-		return "The total wage of employee in "+company+" is : "+ totalWage;
+	private void displayEmpWage() {
+		for (int i=0; i< numOfCompany; i++) {
+			System.out.println(companyEmpWageArray[i]);
+		}
 	}
 	
 	public static void main(String[] args) {
-		EmpWageBuilder dMart = new EmpWageBuilder("Dmart",20, 5, 50);
-		EmpWageBuilder Reliance = new EmpWageBuilder("Reliance",22, 6, 60);
+		EmpWageBuilder empWageBuilder = new EmpWageBuilder();
+		empWageBuilder.addCompanyEmpWage("Dmart",20, 5, 50);
+		empWageBuilder.addCompanyEmpWage("Reliance",22, 6, 60);
 		
-		dMart.computeEmpWage();
-		System.out.println(dMart);
+		empWageBuilder.computeEmpWage();
+		empWageBuilder.displayEmpWage();
 		
-		Reliance.computeEmpWage();
-		System.out.println(Reliance);
+
 		
 	}
 
