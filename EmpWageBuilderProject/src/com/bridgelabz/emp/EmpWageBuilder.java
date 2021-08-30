@@ -13,5 +13,4 @@ public class EmpWageBuilder {
 			System.out.println("Employee is absent");
 		}
 	}
-
 }
