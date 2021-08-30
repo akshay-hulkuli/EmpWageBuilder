@@ -32,5 +32,4 @@ public class EmpWageBuilder {
 		int totalWage = totalEmpHrs *totalWorkingDays;
 		System.out.println("Total Emp Wage: " + totalWage );
 	}
-
 }
