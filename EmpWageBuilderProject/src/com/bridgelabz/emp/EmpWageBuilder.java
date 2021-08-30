@@ -30,5 +30,4 @@ public class EmpWageBuilder {
 		}
 		System.out.println("Total Emp Wage: " + totalEmpWage);
 	}
-
 }
